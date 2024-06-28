@@ -22,7 +22,7 @@ export default function UserButton() {
           <button
             onClick={() =>
               connect({
-                connector: connectors[1],
+                connector: connectors[0],
               })
             }
           >
