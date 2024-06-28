@@ -1,36 +1,14 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Demo for a Wagmi Disconnected Cookie Bug
 
-## Getting Started
+## Description
 
-First, run the development server:
+This repository demostrates the following bug in the Wagmi library:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+When calling `disconnect`, wagmi would normally store a session cookie like `wagmi.io.metamask.disconnected` so the page stays disconnected after a refresh (Since wallet like metamask doesn't provide way to do a real disconnect).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+However, this cookie should be cleared/removed if the user connects again. This removal of the "disconnected" cookie currently only works when the the "connect" call is maded on the root `/` and first level pages (e.g. `/foo`) but **NOT** on pages that are deeper (e.g. `/bar/qux` or `/a/b/c`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Library Versions:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- `@wagmi/core`: "2.11.5"
+- `wagmi`: "2.10.8"
